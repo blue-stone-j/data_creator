@@ -1,0 +1,8 @@
+/.vscode
+/.cache
+
+/build
+/install
+
+/cmake/data_creatorConfig.cmake
+/include/global_definition.h

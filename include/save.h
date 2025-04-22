@@ -5,7 +5,7 @@
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
 
-static void savePointsToFile(const std::vector<Point3D> &points, const std::string &filename)
+static void savePointsToFile(const std::vector<dator::Point3D> &points, const std::string &filename)
 {
   std::ofstream file(filename);
   if (!file)

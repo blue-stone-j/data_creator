@@ -1,6 +1,10 @@
 
 #include "sample/plane.h"
 
+namespace dator
+{
+namespace sample
+{
 std::vector<Plane> samplePlanesThroughLine(
     const Eigen::Vector3d &point_on_line,
     const Eigen::Vector3d &line_direction,
@@ -26,3 +30,5 @@ std::vector<Plane> samplePlanesThroughLine(
 
   return planes;
 }
+} // namespace sample
+} // namespace dator

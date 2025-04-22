@@ -1,9 +1,7 @@
 #include <iostream>
-#include <fstream>
 #include <iomanip>
 #include "sample/cylinder.h"
 #include "sample/plane.h"
-#include "sample/ray.h"
 
 #include "save.h"
 
@@ -25,7 +23,7 @@ int main(int argc, char **argv)
     // double start_angle = 0.1 * i;
     double start_angle = 0.1;
     int N              = 30; // number of sampled planes
-    auto planes        = samplePlanesThroughLine(point_on_line, line_direction, N, start_angle);
+    auto planes        = dator::sample::samplePlanesThroughLine(point_on_line, line_direction, N, start_angle);
 
     std::cout << std::fixed << std::setprecision(5);
     // std::random_device rd;
@@ -39,16 +37,9 @@ int main(int argc, char **argv)
                 << " rad): " << plane.normal.transpose()
                 << " · (x, y, z) = " << plane.d << "\n";
 
-      auto points_t = sampleCylinderCrossSectionPoints(point_on_line, plane.normal, cyl_center, cyl_axis, cyl_radius, 1000);
-
-      for (auto &point : points_t)
-      {
-        if (point.z() < -3 || point.z() > 2)
-        { continue; }
-        points.emplace_back(point);
-      }
+      auto points_t = dator::sample::sampleCylinderCrossSectionPoints(point_on_line, plane.normal, cyl_center, cyl_axis, cyl_radius, 1000);
+      points.insert(points.end(), points_t.begin(), points_t.end());
     }
-    // points.insert(points.end(), points_t.begin(), points_t.end());
   }
 
   savePointsToFile(points, "cylinder.txt");

@@ -1,10 +1,10 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <random>
 #include <Eigen/Dense>
 
-
+namespace dator
+{
 struct Point3D
 {
   double x, y, z;
@@ -22,5 +22,6 @@ struct Plane
   double d; // plane offset
   double theta; // angle (in radians) as the unique parameter
 };
+} // namespace dator
 
 #endif // COMMON_H

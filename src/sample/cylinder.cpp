@@ -1,10 +1,14 @@
+#include <random>
 #include <vector>
 #include <cmath>
 #include <Eigen/Dense>
 
 #include "sample/cylinder.h"
 
-
+namespace dator
+{
+namespace sample
+{
 std::vector<Point3D> generateCylinderPoints(double radius, double height, int num_circumference, int num_height)
 {
   std::vector<Point3D> points;
@@ -121,3 +125,5 @@ std::vector<Eigen::Vector3d> sampleCylinderCrossSectionPoints(
 
   return points;
 }
+} // namespace sample
+} // namespace dator

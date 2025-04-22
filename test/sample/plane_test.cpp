@@ -9,7 +9,7 @@ TEST(plane, line)
   Eigen::Vector3d line_direction(0.0, 0.0, 1.0); // z-axis
 
   int N       = 8; // sample 8 planes
-  auto planes = samplePlanesThroughLine(point_on_line, line_direction, N);
+  auto planes = dator::sample::samplePlanesThroughLine(point_on_line, line_direction, N);
 
   std::cout << std::fixed << std::setprecision(3);
   for (int i = 0; i < N; ++i)

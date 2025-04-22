@@ -1,22 +1,25 @@
 
 #include "sample/ray.h"
 
-
+namespace dator
+{
+namespace sample
+{
 std::vector<Ray> sampleRadialLines(const Eigen::Vector3d &origin,
                                    const Eigen::Vector3d &normal,
                                    int N)
 {
   std::vector<Ray> rays;
-  Eigen::Vector3d n = normal.normalized( );
+  Eigen::Vector3d n = normal.normalized();
 
   Eigen::Vector3d u;
-  if (std::abs(n.z( )) < 1.0)
+  if (std::abs(n.z()) < 1.0)
   {
-    u = n.cross(Eigen::Vector3d::UnitZ( )).normalized( );
+    u = n.cross(Eigen::Vector3d::UnitZ()).normalized();
   }
   else
   {
-    u = n.cross(Eigen::Vector3d::UnitY( )).normalized( );
+    u = n.cross(Eigen::Vector3d::UnitY()).normalized();
   }
   Eigen::Vector3d v = n.cross(u);
 
@@ -29,3 +32,5 @@ std::vector<Ray> sampleRadialLines(const Eigen::Vector3d &origin,
 
   return rays;
 }
+} // namespace sample
+} // namespace dator

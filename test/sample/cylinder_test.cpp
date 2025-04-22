@@ -2,7 +2,6 @@
 
 #include <pcl/io/pcd_io.h>
 
-// #include "common.h"
 #include "sample/cylinder.h"
 #include "sample/plane.h"
 #include "sample/ray.h"
@@ -19,7 +18,7 @@ TEST(cylinder, cylinder)
   int num_height        = 50; // Number of points along the height
 
   // Generate cylinder surface points
-  std::vector<Point3D> points = generateCylinderPoints(radius, height, num_circumference, num_height);
+  std::vector<dator::Point3D> points = dator::sample::generateCylinderPoints(radius, height, num_circumference, num_height);
 
   // Save points to a file
   savePointsToFile(points, "cylinder_points.txt");
@@ -34,7 +33,7 @@ TEST(cylinder, ray)
   Eigen::Vector3d point_on_line(0.0, 0.0, 0.0);
   Eigen::Vector3d line_direction(1.0, 0.0, 0.0); // x-axis
   int N       = 30; // sample 8 planes
-  auto planes = samplePlanesThroughLine(point_on_line, line_direction, N);
+  auto planes = dator::sample::samplePlanesThroughLine(point_on_line, line_direction, N);
 
   Eigen::Vector3d cyl_center(1, 1, 0);
   Eigen::Vector3d cyl_axis(0, 0, 1);
@@ -45,13 +44,13 @@ TEST(cylinder, ray)
   {
     const auto &plane = planes[i];
     std::cout << "Plane " << i << " (theta = " << plane.theta
-              << " rad): " << plane.normal.transpose( )
+              << " rad): " << plane.normal.transpose()
               << " · (x, y, z) = " << plane.d << "\n";
 
-    auto rays = sampleRadialLines(point_on_line, plane.normal, 200);
+    auto rays = dator::sample::sampleRadialLines(point_on_line, plane.normal, 200);
     for (const auto &ray : rays)
     {
-      auto hit = intersectRayWithCylinder(
+      auto hit = dator::sample::intersectRayWithCylinder(
           ray.origin, ray.direction, cyl_center, cyl_axis, cyl_radius);
       if (hit)
       {
@@ -62,17 +61,17 @@ TEST(cylinder, ray)
   }
 
   ofs << "ply\nformat ascii 1.0\n";
-  ofs << "element vertex " << points.size( ) << "\n";
+  ofs << "element vertex " << points.size() << "\n";
   ofs << "property float x\nproperty float y\nproperty float z\nend_header\n";
   for (const auto &pt : points)
   {
-    ofs << pt.x( ) << " " << pt.y( ) << " " << pt.z( ) << "\n";
+    ofs << pt.x() << " " << pt.y() << " " << pt.z() << "\n";
   }
-  ofs.close( );
+  ofs.close();
 
   for (auto point : points)
   {
-    cloud.emplace_back(pcl::PointXYZ(point.x( ), point.y( ), point.z( )));
+    cloud.emplace_back(pcl::PointXYZ(point.x(), point.y(), point.z()));
   }
   savePointCloudToPCD(cloud, "cylinder_ray.pcd");
 }
@@ -86,5 +85,5 @@ int main(int argc, char **argv)
   ::testing::InitGoogleTest(&argc, argv);
 
 
-  return RUN_ALL_TESTS( );
+  return RUN_ALL_TESTS();
 }

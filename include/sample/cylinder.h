@@ -3,6 +3,10 @@
 
 #include "common.h"
 
+namespace dator
+{
+namespace sample
+{
 // generate points on a cylinder
 std::vector<Point3D> generateCylinderPoints(double radius, double height, int num_circumference, int num_height);
 
@@ -23,4 +27,6 @@ std::vector<Eigen::Vector3d> sampleCylinderCrossSectionPoints(
     double cyl_radius,
     int N // number of samples
 );
+} // namespace sample
+} // namespace dator
 #endif
